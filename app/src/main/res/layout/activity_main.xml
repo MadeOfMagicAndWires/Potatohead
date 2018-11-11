@@ -73,6 +73,14 @@
             app:srcCompat="@drawable/eyes" />
 
         <ImageView
+            android:id="@+id/mustache"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="mustache imageview"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/mustache" />
+
+        <ImageView
             android:id="@+id/eyebrows"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -113,73 +121,75 @@
 
 
         <CheckBox
-            android:id="@+id/checkBox1"
+            android:id="@+id/checkBoxArms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="arms" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/checkBoxShoes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="shoes" />
 
         <CheckBox
-            android:id="@+id/checkBox3"
+            android:id="@+id/checkBoxEars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="ears" />
 
         <CheckBox
-            android:id="@+id/checkBox4"
+            android:id="@+id/checkBoxMouth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="mouth" />
 
         <CheckBox
-            android:id="@+id/checkBox5"
+            android:id="@+id/checkBoxNose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="nose" />
 
         <CheckBox
-            android:id="@+id/checkBox6"
+            android:id="@+id/checkBoxEyes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="eyes" />
 
         <CheckBox
-            android:id="@+id/checkBox7"
+            android:id="@+id/checkBoxMustache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="mustache" />
 
         <CheckBox
-            android:id="@+id/checkBox8"
+            android:id="@+id/checkBoxEyebrows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="eyebrows" />
 
         <CheckBox
-            android:id="@+id/checkBox9"
+            android:id="@+id/checkBoxGlasses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="glasses" />
 
         <CheckBox
-            android:id="@+id/checkBox0"
+            android:id="@+id/checkBoxHat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="checkClicked"
-            android:text="CheckBox" />
+            android:text="hat" />
+
+
     </GridLayout>
 </android.support.constraint.ConstraintLayout>
