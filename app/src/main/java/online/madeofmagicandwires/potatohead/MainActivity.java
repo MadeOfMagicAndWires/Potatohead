@@ -13,24 +13,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // This already worked as is so I didn't change anything.
     }
 
     /**
      * Onclick function for checkboxes. Finds the corresponding ImageView and toggles its visibility.
+     * Used to be checkClicked(); renamed to better descriptor
+     *
      * @param v Checkbox object that called the function.
      */
-    public void checkClicked(View v ) {
+    public void toggleBodyPart(View v ) {
         CheckBox box = (CheckBox) v;
         String boxText = box.getText().toString();
 
         try {
             View image = findViewByIdString(boxText);
             toggleVisibility(image);
+            Log.d("potato",
+                    "toggled visibility of " + image.getContentDescription().toString());
         } catch(Resources.NotFoundException e){
             Log.w("potato", e.getMessage());
         }
 
-        Log.d("potato", boxText);
+        // Log.d("potato", boxText);
 
 
     }
