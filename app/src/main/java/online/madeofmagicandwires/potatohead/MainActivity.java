@@ -4,17 +4,90 @@ import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.CheckBox;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
+import java.io.Serializable;
+
+
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * Serializable SparseIntArray class. Required to send it to outState.
+     *
+     * @see java.io.Serializable
+     * @see "https://stackoverflow.com/a/21574953" for inspiration.
+     */
+    public class SerializableSparseIntArray extends SparseIntArray implements Serializable{
+
+        private static final long serialVersionUID = 5939429315080188394L;
+
+        public SerializableSparseIntArray(int initialCapacity){
+            super(initialCapacity);
+        }
+
+        public SerializableSparseIntArray() {
+            super();
+        }
+
+        /**
+         * Serializable required methods
+         */
+        private void writeObject(ObjectOutputStream oos) throws IOException {
+            Object[] data = new Object[size()];
+
+            for(int i=0; i < size(); i++){
+                Object[] pair = {keyAt(i), valueAt(i)};
+                data[i] = pair;
+            }
+            oos.writeObject(data);
+        }
+
+        private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+            Object[] data = (Object[]) ois.readObject();
+            for(int i=0;i<data.length;i++) {
+                Object[] pair = (Object[]) data[i];
+                this.append((int) pair[0], (int) pair[1]);
+            }
+
+        }
+
+    }
+    public SerializableSparseIntArray visibilityState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // This already worked as is so I didn't change anything.
+        // Restore visibility State
+
+        try {
+            Log.d("potato onCreate", savedInstanceState.toString());
+            visibilityState = (SerializableSparseIntArray)
+                    savedInstanceState.getSerializable("visibility");
+            Log.d("potato onCreate", visibilityState.toString());
+            restoreVisibilityState(visibilityState);
+        } catch(NullPointerException e) {
+            Log.d("potato OnCreate", "savedInstance was null, creating new visibilityState");
+            visibilityState = new SerializableSparseIntArray();
+        }
+
+    }
+
+    public void storeVisibilityState(View v, SparseIntArray state){
+        state.put(v.getId(), v.getVisibility());
+    }
+
+    public void restoreVisibilityState(SparseIntArray state){
+        for(int i = 0;i < state.size(); i++){
+            findViewById(state.keyAt(i)).setVisibility(state.valueAt(i));
+        }
     }
 
     /**
@@ -32,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
             toggleVisibility(image);
             Log.d("potato",
                     "toggled visibility of " + image.getContentDescription().toString());
+
+            storeVisibilityState(image, visibilityState);
         } catch(Resources.NotFoundException e){
             Log.w("potato", e.getMessage());
         }
@@ -72,5 +147,16 @@ public class MainActivity extends AppCompatActivity {
         } else {
             v.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        // Save visibility state
+
+        outState.putSerializable("visibility", visibilityState);
+        Log.d("potato onSaveInstance", "visibilityState saved");
+
     }
 }
