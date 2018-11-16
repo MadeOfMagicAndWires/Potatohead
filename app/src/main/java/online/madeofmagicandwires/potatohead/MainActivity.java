@@ -60,15 +60,19 @@ public class MainActivity extends AppCompatActivity {
     }
     public SerializableSparseIntArray visibilityState;
 
+    /**
+     * Restore visibility state of previously toggled ImageViews.
+     * @param savedInstanceState Bundle of persistent data to restore.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Restore visibility State
+        // Restore visibility state.
+        // On initial run this doesn't exist, so create an empty SparseIntArray instead.
 
         try {
-            Log.d("potato onCreate", savedInstanceState.toString());
             visibilityState = (SerializableSparseIntArray)
                     savedInstanceState.getSerializable("visibility");
             Log.d("potato onCreate", visibilityState.toString());
@@ -80,40 +84,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Stores reference and visibility of a view for later use.
+     * @param v     View to store visibility of
+     * @param state SparseIntArray to store reference in
+     */
     public void storeVisibilityState(View v, SparseIntArray state){
         state.put(v.getId(), v.getVisibility());
     }
 
+    /**
+     * Restores visibility state of a view from a reference.
+     * @param state database of stored visibility states.
+     */
     public void restoreVisibilityState(SparseIntArray state){
         for(int i = 0;i < state.size(); i++){
             findViewById(state.keyAt(i)).setVisibility(state.valueAt(i));
         }
-    }
-
-    /**
-     * Onclick function for checkboxes. Finds the corresponding ImageView and toggles its visibility.
-     * Used to be checkClicked(); renamed to better descriptor
-     *
-     * @param v Checkbox object that called the function.
-     */
-    public void toggleBodyPart(View v ) {
-        CheckBox box = (CheckBox) v;
-        String boxText = box.getText().toString();
-
-        try {
-            View image = findViewByIdString(boxText);
-            toggleVisibility(image);
-            Log.d("potato",
-                    "toggled visibility of " + image.getContentDescription().toString());
-
-            storeVisibilityState(image, visibilityState);
-        } catch(Resources.NotFoundException e){
-            Log.w("potato", e.getMessage());
-        }
-
-        // Log.d("potato", boxText);
-
-
     }
 
     /**
@@ -149,12 +136,43 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Onclick function for checkboxes. Finds the corresponding ImageView and toggles its visibility.
+     * Used to be checkClicked(); renamed to better descriptor
+     *
+     * @param v Checkbox object that called the function.
+     */
+    public void toggleBodyPart(View v ) {
+        CheckBox box = (CheckBox) v;
+        String boxText = box.getText().toString();
+
+        try {
+            // find corresponding imageView then toggle its visibility.
+            View image = findViewByIdString(boxText);
+            toggleVisibility(image);
+            Log.d("potato",
+                    "toggled visibility of " + image.getContentDescription().toString());
+
+            // Store the new visibility into visibilityState.
+            storeVisibilityState(image, visibilityState);
+        } catch(Resources.NotFoundException e){
+            Log.w("potato", e.getMessage());
+        }
+
+        // Log.d("potato", boxText);
+
+
+    }
+
+    /**
+     * Saves visibilityState of toggled imageViews to recover onCreate.
+     * @param outState Bundle of persistent data to restore at a later time.
+     */
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
 
         // Save visibility state
-
         outState.putSerializable("visibility", visibilityState);
         Log.d("potato onSaveInstance", "visibilityState saved");
 
