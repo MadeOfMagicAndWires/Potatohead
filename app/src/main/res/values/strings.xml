@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Potatohead</string>
+    <string name="body_imageview_content_desc">Body imageview</string>
+    <string name="arms_imageview_content_desc">arms imageview</string>
+    <string name="shoes_imageview_content_desc">shoes imageview</string>
+    <string name="ears_imageview_content_desc">ears imageview</string>
+    <string name="mouth_imageview_content_desc">mouth imageview</string>
+    <string name="nose_imageview_content_desc">nose imageview</string>
+    <string name="eyes_imageview_content_desc">eyes imageview</string>
+    <string name="mustache_imageview_content_desc">mustache imageview</string>
+    <string name="eyebrows_imageview_content_desc">eyebrows imageview</string>
+    <string name="glasses_imageview_content_desc">glasses imageview</string>
+    <string name="hat_imageview_content_desc">hat imageview</string>
+    <string name="arms_checkbox_label">Arms</string>
+    <string name="shoes_checkbox_label">Shoes</string>
+    <string name="ears_checkbox_label">Ears</string>
+    <string name="mouth_checkbox_label">Mouth</string>
+    <string name="nose_checkbox_label">Nose</string>
+    <string name="eyes_checkbox_label">Eyes</string>
+    <string name="mustache_checkbox_label">Mustache</string>
+    <string name="eyebrows_checkbox_label">Eyebrows</string>
+    <string name="glasses_checkbox_label">Glasses</string>
+    <string name="hat_checkbox_label">Hat</string>
+    <string name="reset_button_label">reset</string>
 </resources>

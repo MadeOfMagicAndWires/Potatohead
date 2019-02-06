@@ -28,7 +28,7 @@ android {
             // the build automatically avoids legacy multidex when deploying to a device running
             // API level 21 or higher—regardless of what you set as your minSdkVersion.
             dimension "stage"
-            minSdkVersion 25
+            minSdkVersion 24
             versionNameSuffix "-dev"
             applicationIdSuffix '.dev'
             resConfigs "en", "xxhdpi"
